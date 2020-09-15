@@ -8,17 +8,20 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.wallet.entity.User;
 
 
 @DataJpaTest
+@ActiveProfiles("test")
 @TestInstance(Lifecycle.PER_CLASS)
 public class UserRepositoryTest {
 	
@@ -62,8 +65,7 @@ public class UserRepositoryTest {
 	
 	@Test
 	public void testFindByEmail() {
-		
-		
+				
 		Optional<User> response = repository.findByEmailEquals(EMAIL);
 		
 		assertTrue(response.isPresent());
