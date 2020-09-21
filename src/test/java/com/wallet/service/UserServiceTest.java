@@ -5,39 +5,38 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestInstance.Lifecycle;
-import org.mockito.BDDMockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.wallet.entity.User;
 import com.wallet.repository.UserRepository;
+import com.wallet.service.impl.UserServiceImpl;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
-@TestInstance(Lifecycle.PER_CLASS)
-class UserServiceTest {
+public class UserServiceTest {
 	
-	@MockBean
-	UserRepository repository;
 	
-	@Autowired
-	UserService service;
+	@InjectMocks
+	private UserServiceImpl service;
 	
-	@BeforeAll
-	public void setUp() {
-		System.out.println();
-		BDDMockito.given(repository.findByEmailEquals(Mockito.anyString())).willReturn(Optional.of(new User()));
+	@Mock
+	private UserRepository repository;	
+	
+	
+	@BeforeEach
+	void setUp() {		
+		Mockito.when(repository.findByEmailEquals(Mockito.anyString())).thenReturn(Optional.of(new User()));
 	}
 	
 	@Test
-	public void testFindByEmail() {
+	void testFindByEmail() {
 		Optional<User> user = service.findByEmail("email@test.com");
 		
 		assertTrue(user.isPresent());		
