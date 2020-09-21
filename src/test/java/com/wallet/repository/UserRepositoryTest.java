@@ -8,18 +8,18 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.wallet.entity.User;
 
-
+@ExtendWith(SpringExtension.class)
 @DataJpaTest
 @ActiveProfiles("test")
 @TestInstance(Lifecycle.PER_CLASS)
@@ -34,7 +34,7 @@ public class UserRepositoryTest {
 	public void setUp() {
 		User u = new User();
 		u.setName("Set Up User");
-		u.setPassword("Senha123");
+		u.setPassword("Senha123"); 
 		u.setEmail(EMAIL);
 		
 		repository.save(u);
