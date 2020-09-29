@@ -2,11 +2,9 @@ package com.wallet.controller;
 
 
 import com.wallet.dto.UserWalletDTO;
-import com.wallet.dto.WalletDTO;
 import com.wallet.entity.UserWallet;
-import com.wallet.entity.Wallet;
 import com.wallet.response.Response;
-import com.wallet.service.UserWalletService;
+import com.wallet.service.impl.UserWalletServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +21,7 @@ import javax.validation.Valid;
 public class UserWalletController {
 
     @Autowired
-    UserWalletService service;
+    UserWalletServiceImpl service;
 
     @PostMapping
     public ResponseEntity<Response<UserWalletDTO>> create(@Valid @RequestBody UserWalletDTO dto, BindingResult result){
